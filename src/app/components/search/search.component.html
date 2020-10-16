@@ -1,1 +1,5 @@
-<p>search works!</p>
+<div *ngIf="flights$ | async as flights">
+  <div *ngFor="let flight of flights">
+      {{ flight.departure.airport.city }}
+  </div>
+</div>
