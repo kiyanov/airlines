@@ -31,6 +31,7 @@ export interface Flight {
   departure: Departure;
   arrival: Arrival;
   aircraft: Aircraft;
+  price: number;
 }
 
 export interface Trip {

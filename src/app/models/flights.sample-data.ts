@@ -71,6 +71,7 @@ function getFlight(): Flight {
       airport: getAirport(),
       datetime: new Date(departure.setHours(departure.getHours() + duration)),
     },
+    price: Math.floor(10 + Math.random()*(100 + 1 - 10))
   }
 }
 
