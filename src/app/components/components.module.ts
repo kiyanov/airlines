@@ -15,6 +15,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatListModule} from "@angular/material/list";
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 
@@ -39,6 +40,7 @@ import {MatSortModule} from "@angular/material/sort";
     MatListModule,
     MatTableModule,
     MatSortModule,
+    MatPaginatorModule
   ],
   exports: [
     SearchComponent,
@@ -55,6 +57,7 @@ import {MatSortModule} from "@angular/material/sort";
     MatListModule,
     MatTableModule,
     MatSortModule,
+    MatPaginatorModule,
   ],
 })
 export class ComponentsModule { }
