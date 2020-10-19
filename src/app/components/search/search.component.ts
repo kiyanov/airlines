@@ -3,6 +3,8 @@ import {FlightService} from "../../services/flight.service";
 import {Observable} from "rxjs";
 import {Airport, Flight} from "../../models/models";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Sort} from "@angular/material/sort";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-search',
@@ -12,6 +14,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class SearchComponent implements OnInit {
   flights$: Observable<Flight[]>;
   airports$: Observable<Airport[]>;
+  displayedColumns: string[] = ['destination', 'arrival', 'duration', 'price'];
   searchForm: FormGroup = new FormGroup({
     departure: new FormControl('', [Validators.required]),
     arrival: new FormControl(''),
@@ -22,8 +25,11 @@ export class SearchComponent implements OnInit {
     directFlight: new FormControl(true, []),
     connections: new FormControl(1, [Validators.minLength(1)]),
   }, {validators: []})
+  private dataSource: MatTableDataSource<unknown>;
+
 
   constructor(private flightService: FlightService) {
+    this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit(): void {
@@ -31,6 +37,10 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-    this.flights$ = this.flightService.searchFlights(this.searchForm.value);
+    if(this.searchForm.valid) {
+      this.flights$ = this.flightService.searchFlights(this.searchForm.value);
+    }
+
   }
+
 }

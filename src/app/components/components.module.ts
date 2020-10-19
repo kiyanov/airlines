@@ -12,6 +12,9 @@ import {MatSliderModule} from "@angular/material/slider";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatListModule} from "@angular/material/list";
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
 
 
 
@@ -33,6 +36,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatButtonModule,
     MatIconModule,
     MatCheckboxModule,
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
   ],
   exports: [
     SearchComponent,
@@ -46,6 +52,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatButtonModule,
     MatIconModule,
     MatCheckboxModule,
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
   ],
 })
 export class ComponentsModule { }
