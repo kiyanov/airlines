@@ -1,5 +1,60 @@
-<div *ngIf="flights$ | async as flights">
-  <div *ngFor="let flight of flights">
-      {{ flight.departure.airport.city }}
+<form [formGroup]="searchForm" class="search-form" (submit)="search()">
+  <mat-form-field *ngIf="airports$ | async as airports" class="search-form-field">
+    <input type="text"
+           placeholder="Departure"
+           aria-label="Departure"
+           matInput
+           formControlName="departure"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let airport of airports" [value]="airport.iata">
+        {{ airport.city }}, {{ airport.name }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="airports$ | async as airports" class="search-form-field">
+    <input type="text"
+           placeholder="Arrival"
+           aria-label="Arrival"
+           matInput
+           formControlName="arrival"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let airport of airports" [value]="airport.name">
+        {{ airport.city }}, {{ airport.name }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="search-form-field">
+    <mat-label>From</mat-label>
+    <input aria-label="From" formControlName="dateFrom" matInput [matDatepicker]="dateFrom">
+    <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
+    <mat-datepicker #dateFrom></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="search-form-field">
+    <mat-label>To</mat-label>
+    <input aria-label="To" formControlName="dateTo" matInput [matDatepicker]="dateTo">
+    <mat-datepicker-toggle matSuffix [for]="dateTo">
+    </mat-datepicker-toggle>
+    <mat-datepicker #dateTo></mat-datepicker>
+  </mat-form-field>
+  <div>
+    <mat-form-field class="search-form-field">
+      <mat-label> Price from:</mat-label>
+      <input matInput type="number" formControlName="priceFrom">
+    </mat-form-field>
+    <mat-form-field class="search-form-field">
+      <mat-label> Price to:</mat-label>
+      <input matInput type="number" formControlName="priceTo">
+    </mat-form-field>
   </div>
-</div>
+  <mat-checkbox class="search-form-field" formControlName="directFlight">Direct Flight</mat-checkbox>
+  <mat-form-field class="search-form-field" *ngIf="searchForm.get('directFlight').value === false">
+    <mat-label> Number of connections:</mat-label>
+    <input matInput type="number" formControlName="connections">
+  </mat-form-field>
+
+  <button mat-button mat-raised-button color="primary" type="submit">Search</button>
+</form>

@@ -38,3 +38,12 @@ export interface Trip {
   _id: string;
   flights: Flight[];
 }
+
+export interface SearchOptions {
+  arrival: string;
+  dateFrom: Date;
+  dateTo: Date;
+  departure: string;
+  priceFrom: number;
+  priceTo: number;
+}

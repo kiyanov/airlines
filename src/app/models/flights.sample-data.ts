@@ -12,7 +12,7 @@ enum AircraftTypes {
 }
 
 // Sample airports
-const airports: Airport[] = [{
+export const airports: Airport[] = [{
   city: 'Kyiv',
   name: 'Boryspil International Airport',
   iata: 'KBP',
