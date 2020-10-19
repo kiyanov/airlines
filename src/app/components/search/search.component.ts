@@ -15,18 +15,18 @@ import {MatPaginator} from "@angular/material/paginator";
 export class SearchComponent implements OnInit, AfterViewInit {
   // flights$: Observable<Flight[]>;
   airports$: Observable<Airport[]>;
-  displayedColumns: string[] = ['destination', 'arrival', 'duration', 'price'];
+  displayedColumns: string[] = ['destination', 'destinationCity', 'arrival', 'arrivalCity', 'duration', 'price'];
   searchForm: FormGroup = new FormGroup({
     departure: new FormControl('', [Validators.required]),
     arrival: new FormControl(''),
     dateFrom: new FormControl(''),
     dateTo: new FormControl(''),
-    priceFrom: new FormControl(1, [Validators.minLength(1), Validators.maxLength(10000)]),
-    priceTo: new FormControl(1, [Validators.minLength(1), Validators.maxLength(10000)]),
+    priceFrom: new FormControl(20, [Validators.minLength(1), Validators.maxLength(10000)]),
+    priceTo: new FormControl(100, [Validators.minLength(1), Validators.maxLength(10000)]),
     directFlight: new FormControl(true, []),
     connections: new FormControl(1, [Validators.minLength(1)]),
   }, {validators: []})
-  private dataSource: MatTableDataSource<unknown>;
+  dataSource: MatTableDataSource<unknown>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
