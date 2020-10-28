@@ -66,23 +66,23 @@
 <div class="mat-elevation-z8">
   <table  mat-table matSort [dataSource]="dataSource" class="full-width">
     <!-- Departure iata Column -->
-    <ng-container matColumnDef="destination">
+    <ng-container matColumnDef="departure.airport.iata">
       <th mat-header-cell mat-sort-header *matHeaderCellDef> Departure</th>
       <td mat-cell *matCellDef="let element"> {{element.departure.airport.iata}} </td>
     </ng-container>
     <!-- Departure city Column -->
-    <ng-container matColumnDef="destinationCity">
+    <ng-container matColumnDef="departure.airport.city">
       <th mat-header-cell mat-sort-header *matHeaderCellDef> Departure city</th>
       <td mat-cell *matCellDef="let element"> {{element.departure.airport.city}} </td>
     </ng-container>
 
     <!-- Arrival iata Column -->
-    <ng-container matColumnDef="arrival">
+    <ng-container matColumnDef="arrival.airport.iata">
       <th mat-header-cell mat-sort-header *matHeaderCellDef> Arrival</th>
       <td mat-cell *matCellDef="let element"> {{element.arrival.airport.iata}} </td>
     </ng-container>
     <!-- Arrival city Column -->
-    <ng-container matColumnDef="arrivalCity">
+    <ng-container matColumnDef="arrival.airport.city">
       <th mat-header-cell mat-sort-header *matHeaderCellDef> Arrival city</th>
       <td mat-cell *matCellDef="let element"> {{element.arrival.airport.city}} </td>
     </ng-container>

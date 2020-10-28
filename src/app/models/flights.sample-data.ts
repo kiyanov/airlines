@@ -1,4 +1,4 @@
-import {Aircraft, Airport, Flight} from "./models";
+import {Aircraft, Airport, Flight} from './models';
 // Sample aircraft types
 enum AircraftTypes {
   'Boeing 737',
@@ -16,27 +16,27 @@ export const airports: Airport[] = [{
   city: 'Kyiv',
   name: 'Boryspil International Airport',
   iata: 'KBP',
-},{
+}, {
   city: 'Cherkasy',
   name: 'Cherkasy International Airport',
   iata: 'CKC',
-},{
+}, {
   city: 'Chernivtsi',
   name: 'Chernivtsi International Airport',
   iata: 'CWC',
-},{
+}, {
   city: 'Dnipro',
   name: 'Dnipropetrovsk International Airport',
   iata: 'DNK',
-},{
+}, {
   city: 'Ivano-Frankivsk',
   name: 'Ivano-Frankivsk International Airport',
   iata: 'IFO',
-},{
+}, {
   city: 'Kharkiv',
   name: 'Kharkiv International Airport',
   iata: 'HRK',
-},{
+}, {
   city: 'Kherson',
   name: 'Kherson International Airport',
   iata: 'KHE',
@@ -46,7 +46,7 @@ export const airports: Airport[] = [{
 /*
   Generates list of random flights
  */
-export function generateFlights (count): Flight[] {
+export function generateFlights(count): Flight[] {
   return Array.from({length: count}, () => getFlight());
 }
 
@@ -62,7 +62,7 @@ function getFlight(): Flight {
   return {
     _id: getId(),
     aircraft: getAircraft(),
-    duration: duration,
+    duration,
     departure: {
       airport: getAirport(),
       datetime: departure
@@ -71,16 +71,16 @@ function getFlight(): Flight {
       airport: getAirport(),
       datetime: new Date(departure.setHours(departure.getHours() + duration)),
     },
-    price: Math.floor(10 + Math.random()*(100 + 1 - 10))
-  }
+    price: Math.floor(10 + Math.random() * (100 + 1 - 10))
+  };
 }
 
 // Helper functions
-function getAirport() {
+function getAirport(): Airport {
   return airports[Math.floor(Math.random() * airports.length)];
 }
 
-function getId() {
+function getId(): string {
   return '_' + Math.random().toString(36).substr(2, 10);
 }
 

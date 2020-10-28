@@ -7,17 +7,17 @@ export interface Airport {
   iata: string;
   name: string;
   city: string;
-  coords?: Coords
+  coords?: Coords;
 }
 
 export interface Departure {
   airport: Airport;
-  datetime: Date
+  datetime: Date;
 }
 
 export interface Arrival {
   airport: Airport;
-  datetime: Date,
+  datetime: Date;
 }
 
 export interface Aircraft {
