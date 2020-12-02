@@ -6,10 +6,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ComponentsModule } from "./components/components.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatAutocomplete, MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatOption, MatOptionModule} from "@angular/material/core";
-import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
+
 @NgModule({
   declarations: [
     AppComponent,

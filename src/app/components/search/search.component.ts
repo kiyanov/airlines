@@ -1,11 +1,18 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FlightService} from '../../services/flight.service';
-import {Observable} from 'rxjs';
+import {fromEvent, Observable,} from 'rxjs';
 import {Airport, Flight} from '../../models/models';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import {debounceTime, distinctUntilChanged, map} from "rxjs/operators";
+
+const identityRevealedValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  const arrival: string = control.get('arrival')?.value;
+  const departure: string = control.get('departure')?.value;
+  return arrival === departure && departure !== '' ? {sameStation: true} : null;
+};
 
 @Component({
   selector: 'app-search',
@@ -21,15 +28,16 @@ export class SearchComponent implements OnInit, AfterViewInit {
     arrival: new FormControl(''),
     dateFrom: new FormControl(''),
     dateTo: new FormControl(''),
-    priceFrom: new FormControl(20, [Validators.minLength(1), Validators.maxLength(10000)]),
-    priceTo: new FormControl(100, [Validators.minLength(1), Validators.maxLength(10000)]),
+    priceFrom: new FormControl(null, [Validators.minLength(1), Validators.maxLength(10000)]),
+    priceTo: new FormControl(null, [Validators.minLength(1), Validators.maxLength(10000)]),
     directFlight: new FormControl(true, []),
     connections: new FormControl(1, [Validators.minLength(1)]),
-  }, {validators: []});
+  }, {validators: [identityRevealedValidator]});
   dataSource: MatTableDataSource<Flight>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('searchInput') searchInput: ElementRef;
 
   constructor(private flightService: FlightService) {
 
@@ -54,6 +62,18 @@ export class SearchComponent implements OnInit, AfterViewInit {
     };
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
+      map((v: { target: HTMLInputElement }) => v.target.value.trim()),
+      debounceTime(400),
+      distinctUntilChanged()
+    ).subscribe((v) => {
+      console.log(v)
+      this.dataSource.filter = v;
+      this.dataSource.paginator?.firstPage();
+    }, (err) => {
+      console.error(err);
+    });
   }
 
   ngOnInit(): void {
@@ -64,15 +84,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
   search(): void {
     if (this.searchForm.valid) {
       this.flightService.searchFlights(this.searchForm.value).subscribe(data => this.dataSource.data = data);
-    }
-  }
-
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
     }
   }
 
